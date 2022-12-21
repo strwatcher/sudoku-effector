@@ -1,0 +1,29 @@
+.wrapper {
+    width: 64px;
+    height: 64px;
+    margin: 0;
+    background-color: #eee;
+    display: grid;
+    border-radius: 8px;
+}
+.cell {
+    align-self: center;
+    justify-self: center;
+    width: 80%;
+    height: 80%;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    background-color: #eee;
+    font-size: 24px;
+    // font-weight: 700;
+
+    &:hover {
+        background-color: #ddd;
+    }
+}
+
+.active,
+.active:hover {
+    background-color: #ccc;
+}

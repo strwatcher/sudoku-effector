@@ -4,20 +4,18 @@
   "cssPreprocessor": "scss",
   "component": {
     "default": {
-      "path": "src/",
+      "path": "./src/widgets",
       "withStory": true,
       "withStyle": true,
+      "withIndex": true,
       "withTest": false,
-      "withLazy": false
-    }
-  },
-  "model": {
-    "default": {
+      "withLazy": false,
       "customTemplates": {
-        "model": "./grc-templates/model/model.ts"
-      },
-      "path": "src/processes",
-      "withModel": true
+        "component": "./grc-templates/component/TemplateName.tsx",
+        "style": "./grc-templates/component/style.module.scss",
+        "index": "./grc-templates/component/index.ts",
+        "story": "./grc-templates/component/TemplateName.stories.tsx"
+      }
     }
   },
   "testLibrary": "None"
