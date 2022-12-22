@@ -17,6 +17,12 @@ module.exports = {
     features: {
         storyStoreV7: true,
     },
+    babelDefault: async () => {
+        return {
+            compact: true,
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+        }
+    },
     viteFinal: async (config) => {
         return {
             ...config,

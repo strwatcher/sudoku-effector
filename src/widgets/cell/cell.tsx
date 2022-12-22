@@ -9,7 +9,6 @@ export type CellProps = ICell & {
 }
 
 export const Cell: React.FC<CellProps> = (props) => {
-    console.log(joinClasses(s.cell))
     const className = React.useMemo(
         () => joinClasses(s.cell, props.active && s.active),
         [props.active]
@@ -17,8 +16,10 @@ export const Cell: React.FC<CellProps> = (props) => {
 
     return (
         <div className={s.wrapper}>
-            <button className={className} onClick={props.onClick}>
-                {props.value}
+            <button
+                className={className}
+                onClick={props.onClick}>
+                {props.viewValue}
             </button>
         </div>
     )
