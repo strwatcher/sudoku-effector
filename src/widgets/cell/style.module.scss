@@ -7,11 +7,12 @@
     border-radius: 8px;
 }
 .cell {
+    padding: 0;
     align-self: center;
     justify-self: center;
     width: 80%;
     height: 80%;
-    outline: none;
+    // outline: none;
     border: none;
     border-radius: 50%;
     background-color: #eee;

@@ -1,0 +1,14 @@
+.container {
+    gap: 8px;
+}
+
+.container > *:nth-child(3n - 5):after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background-color: black;
+}
+
+.area {
+}

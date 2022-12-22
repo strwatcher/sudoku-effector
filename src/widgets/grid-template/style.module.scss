@@ -1,0 +1,11 @@
+.container {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0;
+    padding: 0;
+}
+
+.item {
+    list-style: none;
+}
