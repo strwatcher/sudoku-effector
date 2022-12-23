@@ -16,6 +16,19 @@
         "index": "./grc-templates/component/index.ts",
         "story": "./grc-templates/component/TemplateName.stories.tsx"
       }
+    },
+    "page": {
+      "path": "./src/pages",
+      "withStory": true,
+      "withStyle": false,
+      "withTest": false,
+      "withIndex": true,
+      "withLazy": false,
+      "customTemplates": {
+        "component": "./grc-templates/page/TemplateName.tsx",
+        "index": "./grc-templates/page/index.ts",
+        "story": "./grc-templates/page/TemplateName.stories.tsx"
+      }
     }
   },
   "testLibrary": "None"

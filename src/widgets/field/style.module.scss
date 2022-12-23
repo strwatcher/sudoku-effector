@@ -1,5 +1,6 @@
 .container {
     $space: 8px;
+    $halfSpace: calc($space / 2);
 
     position: relative;
     gap: $space;
@@ -12,7 +13,7 @@
         height: 4px;
         border-radius: 2px;
 
-        transform: translateY($space / 2 - 1);
+        transform: translateY($halfSpace - 1px);
         background-color: #ddd;
     }
 
@@ -27,6 +28,6 @@
         border-radius: 2px;
 
         background-color: #ddd;
-        transform: translateX(-$space / 2 - 1);
+        transform: translateX(-$halfSpace - 1px);
     }
 }

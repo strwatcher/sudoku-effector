@@ -9,7 +9,8 @@
         "preview": "vite preview",
         "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
         "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
-        "g:c": "npx generate-react-cli c"
+        "g:c": "npx generate-react-cli c",
+        "g:p": "npx generate-react-cli c --type=page"
     },
     "dependencies": {
         "effector": "^22.4.1",

@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect } from 'react'
-import { $baseField, selectionMoved } from '@/processes/movement/model'
+import { $baseField, keyPressed } from '@/processes/movement/model'
 import { Field } from '@/widgets/field'
 import { useStore } from 'effector-react'
 
 export const Game: React.FC = () => {
     const fieldData = useStore($baseField)
-    const onMove = useCallback(() => {
-        selectionMoved('right')
+    const onMove = useCallback((e: KeyboardEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        keyPressed(e)
     }, [])
 
     useEffect(() => {

@@ -1,6 +1,11 @@
 import { ICell } from '@/entities/cell/types'
 import { IField } from '@/entities/field/types'
-import { IDirection } from '@/entities/movement/types'
+import {
+    IDirection,
+    IDirectionKey,
+    isIDirectionKey,
+} from '@/entities/movement/types'
+import { keyPressed } from '@/shared/base-logic/model'
 import { FixedArray } from '@/shared/lib/fixed-array'
 import { field } from '@/shared/lib/generator/field'
 import { createEvent, createStore, sample } from 'effector'
@@ -15,15 +20,51 @@ const $currentCellId = createStore<string | null>(null)
 const $currentCell = createStore<ICell | null>(null)
 
 sample({
+    clock: keyPressed,
+    filter: (event) => isIDirectionKey(event.key),
+    fn: (event) => {
+        const key: IDirectionKey = event.key as IDirectionKey
+
+        switch (key) {
+        case 'l':
+        case 'd':
+        case 'ArrowRight':
+            return 'right'
+        case 'h':
+        case 'a':
+        case 'ArrowLeft':
+            return 'left'
+        case 'k':
+        case 'w':
+        case 'ArrowUp':
+            return 'up'
+        case 'j':
+        case 's':
+        case 'ArrowDown':
+            return 'down'
+        }
+    },
+    target: selectionMoved,
+})
+
+sample({
     clock: selectionMoved,
     source: [$currentPos, $iterableField] as const,
     fn: ([pos, field], direction) => {
         switch (direction) {
         case 'right':
-            return pos !== null ? (pos + 1) % field.length : 0
+            return pos !== null ? ((pos + 1) % 9) + pos - (pos % 9) : 0
+        case 'left':
+            return pos !== null ? ((pos - 1 + 9) % 9) + pos - (pos % 9) : 0
+        case 'up':
+            return pos !== null
+                ? (field.length + pos - 9) % field.length
+                : 0
+        case 'down':
+            return pos !== null
+                ? (field.length + pos + 9) % field.length
+                : 0
         }
-
-        return null
     },
     target: $currentPos,
 })
@@ -31,7 +72,8 @@ sample({
 sample({
     clock: $currentPos,
     source: $iterableField,
-    fn: (field, pos) => (pos !== null ? field[pos].id : null),
+    filter: (field, pos) => field !== null && pos !== null,
+    fn: (field, pos) => field[pos!].id,
     target: $currentCellId,
 })
 
@@ -61,6 +103,7 @@ sample({
 })
 
 export {
+    keyPressed,
     selectionMoved,
     $baseField,
     $iterableField,
