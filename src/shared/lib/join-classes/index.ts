@@ -1,8 +1,8 @@
 export function joinClasses(
-    ...classes: Array<string | false | null | undefined>
+  ...classes: Array<string | false | null | undefined>
 ) {
-    return classes
-        .filter((cl) => !!cl)
-        .join(' ')
-        .trim()
+  return classes
+    .filter((cl) => !!cl)
+    .join(' ')
+    .trim()
 }

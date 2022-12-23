@@ -15,33 +15,15 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "effector"
-    ],
+    "plugins": ["react", "@typescript-eslint", "effector"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ],
+        "indent": ["error", 2],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
         "camelcase": "error",
         "eqeqeq": "error",
         "prefer-const": "error"
     },
-    "ignorePatterns": [
-        "grc-templates/**/*"
-    ]
+    "ignorePatterns": ["grc-templates/**/*"]
 }

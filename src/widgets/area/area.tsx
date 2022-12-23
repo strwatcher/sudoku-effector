@@ -7,11 +7,11 @@ import s from './style.module.scss'
 export type AreaProps = IArea
 
 export const Area: React.FC<AreaProps> = (props) => {
-    return (
-        <GridTemplate
-            items={props.cells}
-            render={(cell) => <Cell {...cell} />}
-            ulClass={s.container}
-        />
-    )
+  return (
+    <GridTemplate
+      items={props.cells}
+      render={(cell) => <Cell {...cell} />}
+      ulClass={s.container}
+    />
+  )
 }

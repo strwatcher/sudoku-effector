@@ -5,22 +5,22 @@ import React from 'react'
 import s from './style.module.scss'
 
 export type CellProps = ICell & {
-    onClick?: () => void
+  onClick?: () => void
 }
 
 export const Cell: React.FC<CellProps> = (props) => {
-    const className = React.useMemo(
-        () => joinClasses(s.cell, props.active && s.active),
-        [props.active]
-    )
+  const className = React.useMemo(
+    () => joinClasses(s.cell, props.active && s.active),
+    [props.active]
+  )
 
-    return (
-        <div className={s.wrapper}>
-            <button
-                className={className}
-                onClick={props.onClick}>
-                {props.viewValue}
-            </button>
-        </div>
-    )
+  return (
+    <div className={s.wrapper}>
+      <button
+        className={className}
+        onClick={props.onClick}>
+        {props.viewValue}
+      </button>
+    </div>
+  )
 }

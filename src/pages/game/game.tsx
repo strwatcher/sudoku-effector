@@ -1,20 +1,18 @@
 import React, { useCallback, useEffect } from 'react'
-import { $baseField, keyPressed } from '@/processes/movement/model'
+import { $field, keyPressed } from '@/processes/movement/model'
 import { Field } from '@/widgets/field'
 import { useStore } from 'effector-react'
 
 export const Game: React.FC = () => {
-    const fieldData = useStore($baseField)
-    const onMove = useCallback((e: KeyboardEvent) => {
-        e.preventDefault()
-        e.stopPropagation()
-        keyPressed(e)
-    }, [])
+  const field = useStore($field)
+  const onMove = useCallback((e: KeyboardEvent) => {
+    keyPressed(e)
+  }, [])
 
-    useEffect(() => {
-        document.addEventListener('keydown', onMove)
-        return () => document.removeEventListener('keydown', onMove)
-    }, [onMove])
+  useEffect(() => {
+    document.addEventListener('keydown', onMove)
+    return () => document.removeEventListener('keydown', onMove)
+  }, [onMove])
 
-    return <Field areas={fieldData.areas} />
+  return <Field areas={field} />
 }

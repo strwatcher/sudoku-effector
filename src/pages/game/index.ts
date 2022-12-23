@@ -1,1 +1,1 @@
-export { Game, type GameProps } from './game'
+export { Game } from './game'
