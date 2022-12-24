@@ -1,5 +1,5 @@
 import { FixedArray } from '@/shared/lib/fixed-array'
-import { ICell } from '../cell/types'
+import { ICell } from '../cell'
 
 export type IArea = {
   cells: FixedArray<ICell, 9>

@@ -1,4 +1,4 @@
-import { IArea } from '@/entities/area/types'
+import { IArea } from '@/entities/area'
 import React from 'react'
 import { Cell } from '../cell'
 import { GridTemplate } from '../grid-template'

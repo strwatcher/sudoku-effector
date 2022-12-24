@@ -1,4 +1,4 @@
-import { IField } from '@/entities/field/types'
+import { IField } from '@/entities/field'
 import React from 'react'
 import { Area } from '../area'
 import { GridTemplate } from '../grid-template'

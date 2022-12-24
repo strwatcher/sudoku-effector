@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect } from 'react'
-import { $field, keyPressed } from '@/processes/movement/model'
 import { Field } from '@/widgets/field'
 import { useStore } from 'effector-react'
+import { keyPressed } from '@/shared/base-logic/model'
+import { $field } from '@/processes/game/model'
 
 export const Game: React.FC = () => {
   const field = useStore($field)

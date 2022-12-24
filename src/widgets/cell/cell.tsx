@@ -1,4 +1,4 @@
-import { ICell } from '@/entities/cell/types'
+import { ICell } from '@/entities/cell'
 import { joinClasses } from '@/shared/lib/join-classes'
 
 import React from 'react'

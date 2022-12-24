@@ -1,5 +1,5 @@
-import { IArea } from '@/entities/area/types'
-import { IField } from '@/entities/field/types'
+import { IArea } from '@/entities/area'
+import { IField } from '@/entities/field'
 import { v4 } from 'uuid'
 
 const genArea: (areaId: string) => IArea = (areaId) => ({
