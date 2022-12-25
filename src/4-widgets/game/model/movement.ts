@@ -12,6 +12,7 @@ import {
 
 export const setupMovement = ($field: Store<IField>) => {
   const selectionMoved = createEvent<IDirection>()
+  const cellSelected = createEvent<ICell>()
   const posChanged = createEvent<ICell>()
 
   const $movementField = $field.map((field) => areaToLines(field))
@@ -46,6 +47,20 @@ export const setupMovement = ($field: Store<IField>) => {
   })
 
   sample({
+    clock: cellSelected,
+    source: $movementField,
+    fn: (field, cell) => {
+      for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[i].cells.length; j++) {
+          if (field[i].cells[j].id === cell.id) return { x: j, y: i }
+        }
+      }
+      return { x: 0, y: 0 }
+    },
+    target: $currentPos,
+  })
+
+  sample({
     clock: selectionMoved,
     source: $currentPos,
     fn: (pos, direction) => {
@@ -77,5 +92,5 @@ export const setupMovement = ($field: Store<IField>) => {
     target: posChanged,
   })
 
-  return { posChanged }
+  return { posChanged, cellSelected }
 }

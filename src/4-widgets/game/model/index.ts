@@ -1,18 +1,18 @@
-import { ICell } from '@/6-entities/cell'
+import { ICell, ICellValue, isICellValue } from '@/6-entities/cell'
 import { IField } from '@/6-entities/field'
 import { field } from '@/7-shared/lib/generator/field'
 import { createEvent, createStore, sample } from 'effector'
 import { setupMovement } from './movement'
 import { debug } from 'patronum'
+import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 
-const cellSelected = createEvent<ICell>()
-
+const valueChanged = createEvent<ICellValue | null>()
 const $field = createStore<IField>(field)
 const $currentCell = createStore<ICell | null>(null)
-const { posChanged } = setupMovement($field)
+const { posChanged, cellSelected } = setupMovement($field)
 
 sample({
-  clock: [cellSelected, posChanged],
+  clock: posChanged,
   target: $currentCell,
 })
 
@@ -26,7 +26,7 @@ sample({
       id: area.id,
       cells: area.cells.map((cell) =>
         cell.id === (currentCell as ICell).id
-          ? { ...cell, active: true }
+          ? { ...currentCell, active: true }
           : { ...cell, active: false }
       ),
     })) as IField,
@@ -34,10 +34,28 @@ sample({
   target: $field,
 })
 
+sample({
+  clock: keyPressed,
+  source: $currentCell,
+  filter: (cell, event) =>
+    isICellValue(Number.parseInt(event.key)) && cell !== null,
+  fn: (_, event) => Number.parseInt(event.key) as ICellValue,
+  target: valueChanged,
+})
+
+sample({
+  clock: valueChanged,
+  source: $currentCell,
+  fn: (cell, value) => ({ ...cell, viewValue: value } as ICell),
+  target: $currentCell,
+})
+
 debug({
   field: $field,
   currentCell: $currentCell,
   positionChanged: posChanged,
+  keyPressed: keyPressed,
+  valueChanged: valueChanged,
 })
 
 export { cellSelected, $field, $currentCell }
