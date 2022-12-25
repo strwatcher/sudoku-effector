@@ -1,2 +1,2 @@
 export { Game } from './ui/game'
-export { movement, $currentCell, $field } from './model'
+export { $currentCell, $field } from './model'

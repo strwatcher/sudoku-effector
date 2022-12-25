@@ -1,13 +1,20 @@
 import { ICell } from '@/6-entities/cell'
 import { IField } from '@/6-entities/field'
 import { field } from '@/7-shared/lib/generator/field'
-import { createStore, sample } from 'effector'
+import { createEvent, createStore, sample } from 'effector'
 import { setupMovement } from './movement'
 import { debug } from 'patronum'
 
+const cellSelected = createEvent<ICell>()
+
 const $field = createStore<IField>(field)
 const $currentCell = createStore<ICell | null>(null)
-const movement = setupMovement($field, $currentCell)
+const { posChanged } = setupMovement($field)
+
+sample({
+  clock: [cellSelected, posChanged],
+  target: $currentCell,
+})
 
 sample({
   clock: $currentCell,
@@ -30,9 +37,7 @@ sample({
 debug({
   field: $field,
   currentCell: $currentCell,
-  position: movement.$currentPos,
-  movementField: movement.$movementField,
-  selectionMoved: movement.selectionMoved,
+  positionChanged: posChanged,
 })
 
-export { $field, $currentCell, movement }
+export { cellSelected, $field, $currentCell }

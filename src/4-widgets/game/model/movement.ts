@@ -10,11 +10,9 @@ import {
   move,
 } from '../lib'
 
-export const setupMovement = (
-  $field: Store<IField>,
-  $currentCell: Store<ICell | null>
-) => {
+export const setupMovement = ($field: Store<IField>) => {
   const selectionMoved = createEvent<IDirection>()
+  const posChanged = createEvent<ICell>()
 
   const $movementField = $field.map((field) => areaToLines(field))
   const $currentPos = createStore<IPosition | null>(null)
@@ -76,8 +74,8 @@ export const setupMovement = (
     source: $movementField,
     filter: (_, pos) => pos !== null,
     fn: (field, pos) => field[(pos as IPosition).y].cells[(pos as IPosition).x],
-    target: $currentCell,
+    target: posChanged,
   })
 
-  return { selectionMoved, $movementField, $currentPos }
+  return { posChanged }
 }
