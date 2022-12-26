@@ -29,19 +29,22 @@ sample({
   source: [$field, $currentPosition] as const,
   filter: (_, cell) => cell !== null,
 
-  fn: ([oldField, position], currentCell) =>
-    oldField.map((area, y) => ({
+  fn: ([oldField, position], currentCell) => {
+    return oldField.map((area, y) => ({
       id: area.id,
-      cells: area.cells.map((cell, x) =>
-        cell.id === (currentCell as ICell).id
+      cells: area.cells.map((cell, x) => {
+        console.log(x === position?.x || y === position?.y)
+
+        return cell.id === (currentCell as ICell).id
           ? { ...currentCell, active: true, marked: false }
           : {
             ...cell,
             active: false,
             marked: x === position?.x || y === position?.y,
           }
-      ),
-    })) as IField,
+      }),
+    })) as IField
+  },
 
   target: $field,
 })
@@ -69,12 +72,12 @@ sample({
   target: $currentCell,
 })
 
-debug({
-  field: $field,
-  currentCell: $currentCell,
-  keyPressed: keyPressed,
-  valueChanged: valueChanged,
-  position: $currentPosition,
-})
+// debug({
+//   field: $field,
+//   currentCell: $currentCell,
+//   keyPressed: keyPressed,
+//   valueChanged: valueChanged,
+//   position: $currentPosition,
+// })
 
 export { $field, $renderField, $currentCell, selectedWithMouse }
