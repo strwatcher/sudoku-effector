@@ -6,7 +6,7 @@ import { setupMovement } from './movement'
 import { debug } from 'patronum'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 
-const valueChanged = createEvent<ICellValue | null>()
+const valueChanged = createEvent<ICellValue>()
 const $field = createStore<IField>(field)
 const $currentCell = createStore<ICell | null>(null)
 const { positionChanged, selectedWithMouse } = setupMovement($field)
@@ -44,6 +44,13 @@ sample({
 })
 
 sample({
+  clock: keyPressed,
+  filter: (event) => ['Backspace', 'Delete', 'x'].includes(event.key),
+  fn: () => null as ICellValue,
+  target: valueChanged,
+})
+
+sample({
   clock: valueChanged,
   source: $currentCell,
   fn: (cell, value) => ({ ...cell, viewValue: value } as ICell),
@@ -53,7 +60,7 @@ sample({
 debug({
   field: $field,
   currentCell: $currentCell,
-  positionChanged: selectedWithKeyboard,
+  positionChanged: positionChanged,
   keyPressed: keyPressed,
   valueChanged: valueChanged,
 })

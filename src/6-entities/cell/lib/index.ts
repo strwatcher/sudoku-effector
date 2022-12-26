@@ -1,4 +1,4 @@
-export type ICellValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+export type ICellValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | null
 
 export type ICell = {
   id: string
@@ -8,7 +8,7 @@ export type ICell = {
   active: boolean
 }
 
-export function isICellValue(n: number): n is ICellValue {
+export function isICellValue(n: number | null): n is ICellValue {
   return (
     n === 1 ||
     n === 2 ||
@@ -18,6 +18,7 @@ export function isICellValue(n: number): n is ICellValue {
     n === 6 ||
     n === 7 ||
     n === 8 ||
-    n === 9
+    n === 9 ||
+    n === null
   )
 }

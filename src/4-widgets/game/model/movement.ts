@@ -29,16 +29,16 @@ export const setupMovement = ($field: Store<IField>) => {
       const key: IDirectionKey = event.key as IDirectionKey
       let result: IDirection | null = null
 
-      if (['l', 'd', 'ArrowRight'].find((k) => key === k)) {
+      if (['l', 'd', 'ArrowRight'].includes(key)) {
         result = 'right'
       }
-      if (['h', 'a', 'ArrowLeft'].find((k) => key === k)) {
+      if (['h', 'a', 'ArrowLeft'].includes(key)) {
         result = 'left'
       }
-      if (['k', 'w', 'ArrowUp'].find((k) => key === k)) {
+      if (['k', 'w', 'ArrowUp'].includes(key)) {
         result = 'up'
       }
-      if (['j', 's', 'ArrowDown'].find((k) => key === k)) {
+      if (['j', 's', 'ArrowDown'].includes(key)) {
         result = 'down'
       }
 
@@ -68,13 +68,13 @@ export const setupMovement = ($field: Store<IField>) => {
       let axis: keyof IPosition
       let vector: 1 | -1
 
-      if (['right', 'left'].find((d) => direction === d)) {
+      if (['right', 'left'].includes(direction)) {
         axis = 'x'
       } else {
         axis = 'y'
       }
 
-      if (['down', 'right'].find((d) => direction === d)) {
+      if (['down', 'right'].includes(direction)) {
         vector = 1
       } else {
         vector = -1
