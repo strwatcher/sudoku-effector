@@ -12,11 +12,12 @@ import {
 
 export const setupMovement = ($field: Store<IField>) => {
   const selectionMoved = createEvent<IDirection>()
-  const cellSelected = createEvent<ICell>()
-  const posChanged = createEvent<ICell>()
+
+  const selectedWithMouse = createEvent<ICell>()
+  const positionChanged = createEvent<ICell>()
 
   const $movementField = $field.map((field) => areaToLines(field))
-  const $currentPos = createStore<IPosition | null>(null)
+  const $currentPosition = createStore<IPosition | null>(null)
 
   sample({
     clock: keyPressed,
@@ -47,7 +48,7 @@ export const setupMovement = ($field: Store<IField>) => {
   })
 
   sample({
-    clock: cellSelected,
+    clock: selectedWithMouse,
     source: $movementField,
     fn: (field, cell) => {
       for (let i = 0; i < field.length; i++) {
@@ -57,13 +58,13 @@ export const setupMovement = ($field: Store<IField>) => {
       }
       return { x: 0, y: 0 }
     },
-    target: $currentPos,
+    target: $currentPosition,
   })
 
   sample({
     clock: selectionMoved,
-    source: $currentPos,
-    fn: (pos, direction) => {
+    source: $currentPosition,
+    fn: (position, direction) => {
       let axis: keyof IPosition
       let vector: 1 | -1
 
@@ -79,18 +80,21 @@ export const setupMovement = ($field: Store<IField>) => {
         vector = -1
       }
 
-      return pos !== null ? move(pos, vector, axis, 9) : { x: 0, y: 0 }
+      return position !== null
+        ? move(position, vector, axis, 9)
+        : { x: 0, y: 0 }
     },
-    target: $currentPos,
+    target: $currentPosition,
   })
 
   sample({
-    clock: $currentPos,
+    clock: $currentPosition,
     source: $movementField,
-    filter: (_, pos) => pos !== null,
-    fn: (field, pos) => field[(pos as IPosition).y].cells[(pos as IPosition).x],
-    target: posChanged,
+    filter: (_, position) => position !== null,
+    fn: (field, position) =>
+      field[(position as IPosition).y].cells[(position as IPosition).x],
+    target: positionChanged,
   })
 
-  return { posChanged, cellSelected }
+  return { positionChanged, selectedWithMouse }
 }

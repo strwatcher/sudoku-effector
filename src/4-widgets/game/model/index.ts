@@ -9,10 +9,10 @@ import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 const valueChanged = createEvent<ICellValue | null>()
 const $field = createStore<IField>(field)
 const $currentCell = createStore<ICell | null>(null)
-const { posChanged, cellSelected } = setupMovement($field)
+const { positionChanged, selectedWithMouse } = setupMovement($field)
 
 sample({
-  clock: posChanged,
+  clock: positionChanged,
   target: $currentCell,
 })
 
@@ -53,9 +53,9 @@ sample({
 debug({
   field: $field,
   currentCell: $currentCell,
-  positionChanged: posChanged,
+  positionChanged: selectedWithKeyboard,
   keyPressed: keyPressed,
   valueChanged: valueChanged,
 })
 
-export { cellSelected, $field, $currentCell }
+export { selectedWithMouse, $field, $currentCell }
