@@ -6,6 +6,7 @@ export type ICell = {
   value: ICellValue
   viewValue?: ICellValue
   active: boolean
+  marked: boolean
 }
 
 export function isICellValue(n: number | null): n is ICellValue {

@@ -1,5 +1,4 @@
 import { ICell } from '@/6-entities/cell'
-import { areaToLines, IField } from '@/6-entities/field'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 import { createEvent, createStore, sample, Store } from 'effector'
 import {
@@ -9,14 +8,13 @@ import {
   isIDirectionKey,
   move,
 } from '../lib'
+import { IField } from '@/6-entities/field'
 
 export const setupMovement = ($field: Store<IField>) => {
   const selectionMoved = createEvent<IDirection>()
 
   const selectedWithMouse = createEvent<ICell>()
-  const positionChanged = createEvent<ICell>()
 
-  const $movementField = $field.map((field) => areaToLines(field))
   const $currentPosition = createStore<IPosition | null>(null)
 
   sample({
@@ -49,7 +47,7 @@ export const setupMovement = ($field: Store<IField>) => {
 
   sample({
     clock: selectedWithMouse,
-    source: $movementField,
+    source: $field,
     fn: (field, cell) => {
       for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[i].cells.length; j++) {
@@ -87,14 +85,5 @@ export const setupMovement = ($field: Store<IField>) => {
     target: $currentPosition,
   })
 
-  sample({
-    clock: $currentPosition,
-    source: $movementField,
-    filter: (_, position) => position !== null,
-    fn: (field, position) =>
-      field[(position as IPosition).y].cells[(position as IPosition).x],
-    target: positionChanged,
-  })
-
-  return { positionChanged, selectedWithMouse }
+  return { $currentPosition, selectedWithMouse }
 }

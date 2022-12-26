@@ -1,33 +1,45 @@
 import { ICell, ICellValue, isICellValue } from '@/6-entities/cell'
-import { IField } from '@/6-entities/field'
+import { IField, areaToLines } from '@/6-entities/field'
 import { field } from '@/7-shared/lib/generator/field'
 import { createEvent, createStore, sample } from 'effector'
-import { setupMovement } from './movement'
 import { debug } from 'patronum'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
+import { setupMovement } from './movement'
 
 const valueChanged = createEvent<ICellValue>()
 const $field = createStore<IField>(field)
+const $renderField = $field.map((field) => areaToLines(field))
+
 const $currentCell = createStore<ICell | null>(null)
-const { positionChanged, selectedWithMouse } = setupMovement($field)
+const { $currentPosition, selectedWithMouse } = setupMovement($field)
 
 sample({
-  clock: positionChanged,
+  clock: $currentPosition,
+  source: $field,
+
+  fn: (field, position) => {
+    if (!position) return null
+    return field[position.y].cells[position.x]
+  },
   target: $currentCell,
 })
 
 sample({
   clock: $currentCell,
-  source: $field,
+  source: [$field, $currentPosition] as const,
   filter: (_, cell) => cell !== null,
 
-  fn: (oldField, currentCell) =>
-    oldField.map((area) => ({
+  fn: ([oldField, position], currentCell) =>
+    oldField.map((area, y) => ({
       id: area.id,
-      cells: area.cells.map((cell) =>
+      cells: area.cells.map((cell, x) =>
         cell.id === (currentCell as ICell).id
-          ? { ...currentCell, active: true }
-          : { ...cell, active: false }
+          ? { ...currentCell, active: true, marked: false }
+          : {
+            ...cell,
+            active: false,
+            marked: x === position?.x || y === position?.y,
+          }
       ),
     })) as IField,
 
@@ -60,9 +72,9 @@ sample({
 debug({
   field: $field,
   currentCell: $currentCell,
-  positionChanged: positionChanged,
   keyPressed: keyPressed,
   valueChanged: valueChanged,
+  position: $currentPosition,
 })
 
-export { selectedWithMouse, $field, $currentCell }
+export { $field, $renderField, $currentCell, selectedWithMouse }

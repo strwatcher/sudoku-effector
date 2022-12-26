@@ -10,7 +10,8 @@ export type CellProps = ICell & {
 
 export const Cell: React.FC<CellProps> = (props) => {
   const className = React.useMemo(
-    () => joinClasses(s.cell, props.active && s.active),
+    () =>
+      joinClasses(s.cell, props.active && s.active, props.marked && s.marked),
     [props.active]
   )
 
