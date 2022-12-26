@@ -1,33 +1,33 @@
 .container {
-    $space: 8px;
-    $halfSpace: calc($space / 2);
+  $space: 8px;
+  $halfSpace: calc($space / 2);
 
-    position: relative;
-    gap: $space;
-    & > *:nth-child(1):after,
-    & > *:nth-child(4):after {
-        content: '';
-        position: absolute;
+  position: relative;
+  gap: $space;
+  & > *:nth-child(1):after,
+  & > *:nth-child(4):after {
+    content: '';
+    position: absolute;
 
-        width: 100%;
-        height: 4px;
-        border-radius: 2px;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
 
-        transform: translateY($halfSpace - 1px);
-        background-color: #ddd;
-    }
+    transform: translateY($halfSpace - 1px);
+    background-color: var(--fieldSeparatorColor);
+  }
 
-    & > *:nth-child(2):after,
-    & > *:nth-child(3):after {
-        content: '';
-        position: absolute;
-        top: 0;
+  & > *:nth-child(2):after,
+  & > *:nth-child(3):after {
+    content: '';
+    position: absolute;
+    top: 0;
 
-        width: 4px;
-        height: 100%;
-        border-radius: 2px;
+    width: 4px;
+    height: 100%;
+    border-radius: 2px;
 
-        background-color: #ddd;
-        transform: translateX(-$halfSpace - 1px);
-    }
+    background-color: var(--fieldSeparatorColor);
+    transform: translateX(-$halfSpace - 1px);
+  }
 }

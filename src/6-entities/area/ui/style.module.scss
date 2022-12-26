@@ -1,15 +1,15 @@
 .container {
-    $duration: 1000ms;
-    padding: 8px;
-    gap: 8px;
-    border-radius: 12px;
+  $duration: 1000ms;
+  padding: 8px;
+  gap: 8px;
+  border-radius: 12px;
 
-    background-color: rgba($color: #fff, $alpha: 0);
-    -webkit-transition: background-color $duration ease;
-    -ms-transition: background-color $duration ease;
-    transition: background-color $duration ease;
+  background-color: rgba($color: var(--backgroundColor), $alpha: 0);
+  -webkit-transition: background-color $duration ease;
+  -ms-transition: background-color $duration ease;
+  transition: background-color $duration ease;
 
-    &:hover {
-        background-color: #dfdfdf;
-    }
+  &:hover {
+    background-color: var(--areaHoverColor);
+  }
 }

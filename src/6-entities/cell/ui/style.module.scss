@@ -2,7 +2,7 @@
   width: 64px;
   height: 64px;
   margin: 0;
-  background-color: #eee;
+  background-color: var(--cellColor);
   display: grid;
   border-radius: 8px;
 }
@@ -15,21 +15,22 @@
   outline: none;
   border: none;
   border-radius: 50%;
-  background-color: #eee;
+  background-color: var(--cellColor);
   font-size: 24px;
+  color: var(--textColor);
   // font-weight: 700;
 
   &:hover {
-    background-color: #ddd;
+    background-color: var(--cellHoverColor);
   }
 }
 
 .marked,
 .marked:hover {
-  background-color: #cdcdcd;
+  background-color: var(--cellMarkedColor);
 }
 
 .active,
 .active:hover {
-  background-color: #999;
+  background-color: var(--cellActiveColor);
 }

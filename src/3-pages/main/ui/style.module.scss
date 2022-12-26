@@ -1,0 +1,14 @@
+.main {
+  height: 100vh;
+  padding: 32px;
+  display: grid;
+  grid-template-rows: 1fr 32px;
+  gap: 32px;
+
+  box-sizing: border-box;
+}
+
+.main > *:first-child {
+  align-self: center;
+  justify-self: center;
+}

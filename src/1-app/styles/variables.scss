@@ -1,0 +1,25 @@
+body {
+  --backgroundColor: #fff;
+  --cellColor: #eee;
+  --cellHoverColor: #ddd;
+  --fieldSeparatorColor: #ddd;
+  --cellActiveColor: #999;
+  --cellMarkedColor: #cdcdcd;
+  --areaHoverColor: #dfdfdf;
+  --textColor: #000;
+  --borderColor: #000;
+  --themeColor: #221a1d;
+}
+
+body.dark {
+  --backgroundColor: #221a1d;
+  --cellColor: #2c2a2d;
+  --cellHoverColor: #4d4f4a;
+  --fieldSeparatorColor: #4d4f4a;
+  --cellActiveColor: #666;
+  --cellMarkedColor: #343434;
+  --areaHoverColor: #454545;
+  --textColor: #c4c3c6;
+  --borderColor: #c3c3c6;
+  --themeColor: #fff;
+}
