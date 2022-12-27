@@ -2,13 +2,13 @@
   height: 100vh;
   padding: 32px;
   display: grid;
-  grid-template-rows: 1fr 32px;
+  grid-template-rows: 32px 1fr 32px;
   gap: 32px;
 
   box-sizing: border-box;
 }
 
-.main > *:first-child {
+.main > *:nth-child(2) {
   align-self: center;
   justify-self: center;
 }

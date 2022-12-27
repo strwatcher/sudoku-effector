@@ -3,6 +3,7 @@ import { joinClasses } from '@/7-shared/lib/join-classes'
 
 import React from 'react'
 import s from './style.module.scss'
+import { Tips } from './tips'
 
 export type CellProps = ICell & {
   onClick?: () => void
@@ -20,7 +21,7 @@ export const Cell: React.FC<CellProps> = (props) => {
       <button
         className={className}
         onClick={props.onClick}>
-        {props.viewValue}
+        {props.viewValue || <Tips tips={props.tips ?? []} />}
       </button>
     </div>
   )

@@ -1,4 +1,5 @@
 import { IArea } from '@/6-entities/area'
+import { ICell } from '@/6-entities/cell'
 import { FixedArray } from '@/7-shared/lib/fixed-array'
 
 export type IField = FixedArray<IArea, 9>
@@ -18,5 +19,15 @@ export function areaToLines(field: IField): IField {
       result.push(area)
     }
   }
+  return result
+}
+
+export function fieldToList(field: IField): FixedArray<ICell, 81> {
+  const result = [] as unknown as FixedArray<ICell, 81>
+
+  field.forEach((area) =>
+    area.cells.forEach((cell) => result.push({ ...cell }))
+  )
+
   return result
 }

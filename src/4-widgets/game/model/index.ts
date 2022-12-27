@@ -1,16 +1,25 @@
 import { ICell, ICellValue, isICellValue } from '@/6-entities/cell'
-import { IField, areaToLines } from '@/6-entities/field'
-import { field } from '@/7-shared/lib/generator/field'
+import { IField, areaToLines, field } from '@/6-entities/field'
 import { createEvent, createStore, sample } from 'effector'
 import { debug } from 'patronum'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 import { setupMovement } from './movement'
+import { fieldToList } from '@/6-entities/field/lib'
 
 const valueChanged = createEvent<ICellValue>()
+const modeChanged = createEvent()
+
 const $field = createStore<IField>(field)
 const $renderField = $field.map((field) => areaToLines(field))
-
+const $mode = createStore<'default' | 'edit'>('default')
 const $currentCell = createStore<ICell | null>(null)
+
+const $isWon = $field.map(
+  (field) => !fieldToList(field).find((cell) => cell.value !== cell.viewValue)
+)
+
+const $isEdit = $mode.map((mode) => mode === 'edit')
+
 const { $currentPosition, selectedWithMouse } = setupMovement($field)
 
 sample({
@@ -33,15 +42,10 @@ sample({
     return oldField.map((area, y) => ({
       id: area.id,
       cells: area.cells.map((cell, x) => {
-        console.log(x === position?.x || y === position?.y)
-
+        const marked = x === position?.x || y === position?.y
         return cell.id === (currentCell as ICell).id
           ? { ...currentCell, active: true, marked: false }
-          : {
-            ...cell,
-            active: false,
-            marked: x === position?.x || y === position?.y,
-          }
+          : { ...cell, active: false, marked }
       }),
     })) as IField
   },
@@ -72,12 +76,20 @@ sample({
   target: $currentCell,
 })
 
-// debug({
-//   field: $field,
-//   currentCell: $currentCell,
-//   keyPressed: keyPressed,
-//   valueChanged: valueChanged,
-//   position: $currentPosition,
-// })
+sample({
+  clock: modeChanged,
+  source: $mode,
+  fn: (mode) => (mode === 'edit' ? 'default' : 'edit'),
+  target: $mode,
+})
 
-export { $field, $renderField, $currentCell, selectedWithMouse }
+debug({
+  // field: $field,
+  // currentCell: $currentCell,
+  // keyPressed: keyPressed,
+  // valueChanged: valueChanged,
+  // position: $currentPosition,
+  // won: $isWon,
+})
+
+export { $field, $renderField, $currentCell, selectedWithMouse, $isWon }

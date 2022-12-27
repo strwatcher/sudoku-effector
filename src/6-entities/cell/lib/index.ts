@@ -4,9 +4,10 @@ export type ICell = {
   id: string
   areaId: string
   value: ICellValue
-  viewValue?: ICellValue
+  viewValue: ICellValue
   active: boolean
   marked: boolean
+  tips?: Array<ICellValue>
 }
 
 export function isICellValue(n: number | null): n is ICellValue {
