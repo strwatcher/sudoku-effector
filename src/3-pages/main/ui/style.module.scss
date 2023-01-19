@@ -12,3 +12,8 @@
   align-self: center;
   justify-self: center;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,6 +1,6 @@
-import { IArea } from '@/6-entities/area'
-import { ICell } from '@/6-entities/cell'
+import { IArea } from '@/6-entities/area/ui/area'
 import { FixedArray } from '@/7-shared/lib/fixed-array'
+import { ICell } from '@/7-shared/ui'
 
 export type IField = FixedArray<IArea, 9>
 

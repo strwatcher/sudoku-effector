@@ -1,1 +1,1 @@
-export type { IArea } from './lib'
+export { Area } from './ui'

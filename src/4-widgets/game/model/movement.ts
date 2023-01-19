@@ -1,4 +1,3 @@
-import { ICell } from '@/6-entities/cell'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 import { createEvent, createStore, sample, Store } from 'effector'
 import {
@@ -9,6 +8,7 @@ import {
   move,
 } from '../lib'
 import { IField } from '@/6-entities/field'
+import { ICell } from '@/7-shared/ui'
 
 export const setupMovement = ($field: Store<IField>) => {
   const selectionMoved = createEvent<IDirection>()

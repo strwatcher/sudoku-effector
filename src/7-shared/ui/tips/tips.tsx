@@ -1,9 +1,8 @@
 import React from 'react'
-import { ICellValue } from '../../lib'
 import s from './style.module.scss'
 
 export type TipsProps = {
-  tips: Array<ICellValue>
+  tips: Array<number>
 }
 
 export const Tips: React.FC<TipsProps> = (props) => {

@@ -1,24 +1,20 @@
-import { ICell, ICellValue, isICellValue } from '@/6-entities/cell'
 import { IField, areaToLines, field } from '@/6-entities/field'
 import { createEvent, createStore, sample } from 'effector'
 import { debug } from 'patronum'
 import { keyPressed } from '@/7-shared/lib/key-pressed-event'
 import { setupMovement } from './movement'
 import { fieldToList } from '@/6-entities/field/lib'
+import { ICell, ICellValue, isICellValue } from '@/7-shared/ui/cell'
 
 const valueChanged = createEvent<ICellValue>()
-const modeChanged = createEvent()
 
 const $field = createStore<IField>(field)
 const $renderField = $field.map((field) => areaToLines(field))
-const $mode = createStore<'default' | 'edit'>('default')
 const $currentCell = createStore<ICell | null>(null)
 
 const $isWon = $field.map(
   (field) => !fieldToList(field).find((cell) => cell.value !== cell.viewValue)
 )
-
-const $isEdit = $mode.map((mode) => mode === 'edit')
 
 const { $currentPosition, selectedWithMouse } = setupMovement($field)
 
@@ -74,13 +70,6 @@ sample({
   source: $currentCell,
   fn: (cell, value) => ({ ...cell, viewValue: value } as ICell),
   target: $currentCell,
-})
-
-sample({
-  clock: modeChanged,
-  source: $mode,
-  fn: (mode) => (mode === 'edit' ? 'default' : 'edit'),
-  target: $mode,
 })
 
 debug({

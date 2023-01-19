@@ -4,16 +4,17 @@ import { WithId } from '@/7-shared/lib/types/with-id'
 import React from 'react'
 import s from './style.module.scss'
 
-export type GridTemplateProps<T extends WithId> = {
+export type GridTemplate3x3Props<T extends WithId> = {
   items: FixedArray<T, 9>
   render: (props: T) => React.ReactNode
   ulClass?: string
   liClass?: string
 }
 
-export const GridTemplate: <T extends WithId>(
-  props: GridTemplateProps<T>
+export const GridTemplate3x3: <T extends WithId>(
+  props: GridTemplate3x3Props<T>
 ) => JSX.Element = (props) => {
+  console.log(props.items)
   const { containerClass, itemClass } = React.useMemo(
     () => ({
       containerClass: joinClasses(s.container, props.ulClass),
@@ -21,6 +22,7 @@ export const GridTemplate: <T extends WithId>(
     }),
     [props.ulClass, props.liClass]
   )
+  props.items
   return (
     <ul className={containerClass}>
       {props.items.map((item) => (
